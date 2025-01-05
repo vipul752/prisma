@@ -12,16 +12,19 @@ datasource db {
 
 
 model User {
-  id        String   @id @default(cuid())
+  id        Int   @id @default(autoincrement())
   email     String   @unique
   name      String?
   password  String
+  todo       Todo[]
 }
 
 model Todo {
   id        String   @id @default(cuid())
   title     String
-  completed Boolean
-  userId    String  @map("user_id")
+  content   String
+  completed Boolean?
+  userId    Int
+  user     User     @relation(fields: [userId], references: [id])
 }
 
